@@ -16,7 +16,6 @@ import static com.digitalinnovation.livecoding.constants.HeroesConstant.HEROES_E
 
 @RestController
 @Slf4j
-
 public class HeroesController {
   HeroesService heroesService;
 

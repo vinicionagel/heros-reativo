@@ -25,44 +25,40 @@ import static com.digitalinnovation.livecoding.constants.HeroesConstant.HEROES_E
 @SpringBootTest
 public class HeroesApiApplicationTests {
 
-  @Autowired
-  WebTestClient webTestClient;
+    @Autowired
+    WebTestClient webTestClient;
 
-  @Autowired
-  HeroesRepository heroesRepository;
+    @Autowired
+    HeroesRepository heroesRepository;
 
-
-  @Test
-  public void getOneHeroeById(){
-
-    webTestClient.get().uri(HEROES_ENDPOINT_LOCAL.concat("/{id}"),"10")
-      .exchange()
-      .expectStatus().isOk()
-      .expectBody();
+    @Test
+    public void getOneHeroeById() {
+        webTestClient.get().uri(HEROES_ENDPOINT_LOCAL.concat("/{id}"), "10")
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody();
 
 
-  }
+    }
 
-  @Test
-  public void getOneHeronotFound(){
+    @Test
+    public void getOneHeronotFound() {
+        webTestClient.get().uri(HEROES_ENDPOINT_LOCAL.concat("/{id}"), "10")
+                .exchange()
+                .expectStatus().isNotFound();
 
-    webTestClient.get().uri(HEROES_ENDPOINT_LOCAL.concat("/{id}"),"10")
-      .exchange()
-      .expectStatus().isNotFound();
-
-  }
+    }
 
 
-  @Test
-  public void deleteHero(){
+    @Test
+    public void deleteHero() {
+        webTestClient.delete().uri(HEROES_ENDPOINT_LOCAL.concat("/{id}"), "1")
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isNotFound()
+                .expectBody(Void.class);
 
-    webTestClient.delete().uri(HEROES_ENDPOINT_LOCAL.concat("/{id}"),"1")
-      .accept(MediaType.APPLICATION_JSON)
-      .exchange()
-      .expectStatus().isNotFound()
-      .expectBody(Void.class);
-
-  }
+    }
 
 }
 
